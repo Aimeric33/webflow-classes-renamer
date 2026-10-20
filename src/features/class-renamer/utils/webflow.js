@@ -1,11 +1,11 @@
 export function parseWebflowClipboard(raw) {
-  if (!raw?.trim()) return { error: "Le presse-papier est vide." };
+  if (!raw?.trim()) return { error: "The clipboard is empty." };
 
   let data;
   try {
     data = JSON.parse(raw);
   } catch {
-    return { error: "Ce n'est pas un élément Webflow (contenu non JSON)." };
+    return { error: "The pasted content isn't valid JSON." };
   }
 
   const ok =
@@ -14,7 +14,7 @@ export function parseWebflowClipboard(raw) {
     Array.isArray(data.payload?.styles);
 
   if (!ok) {
-    return { error: "Ce n'est pas un élément Webflow. Copie un élément depuis le Designer (Cmd/Ctrl + C)." };
+    return { error: "The JSON doesn't match Webflow's clipboard format." };
   }
   return { data };
 }
@@ -49,7 +49,7 @@ export function findInvalid(names, styles) {
       invalid.add(id);
       continue;
     }
-    if (styles[id]?.comb) continue; // les combos peuvent partager un nom
+    if (styles[id]?.comb) continue;
 
     if (seen.has(key)) {
       invalid.add(id);

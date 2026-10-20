@@ -28,18 +28,17 @@
     --color-muted: rgb(255 255 255 / 0.5);
 
     /* Accents */
-    --color-primary: #f3ffc9;
-    --color-primary-fg: #08090a;
-    --color-gold: #d4b144;
+    --color-primary: #007AFF;
+    --color-primary-fg: #312ECB;
 
     /* Typo */
     --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
     --font-mono: "Geist Mono", ui-monospace, monospace;
 
     /* Arrondis */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px; 
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
 }
 
 @layer base {
@@ -66,7 +65,7 @@
     }
 
     a {
-        @apply hover:text-heading transition-colors;
+        @apply text-heading hover:text-text transition-colors;
     }
 
     :focus-visible {

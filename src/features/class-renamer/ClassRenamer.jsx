@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { parseWebflowClipboard, buildTree, findInvalid, applyNames, copyToWebflow } from "./utils/webflow";
-import Node from "./components/Node";
 import "./ClassRenamer.css";
+import PasteZone from "./components/PasteZone";
+import ClassesPanel from "./components/ClassesPanel";
 
 export default function ClassRenamer() {
   const [data, setData] = useState(null);
@@ -42,31 +43,20 @@ export default function ClassRenamer() {
   };
 
   return (
-    <div className="wcr">
-      <div className="wcr-col">
-        <textarea
-          className="wcr-paste"
-          value=""
-          onChange={() => {}}
-          onPaste={handlePaste}
-          placeholder="Paste your Webflow element here (Cmd/Ctrl + V)"
-        />
-        {error && <p className="wcr-error">{error}</p>}
-        <button className="wcr-copy" onClick={handleCopy} disabled={invalid.size > 0}>
-              {copied ? "Copied" : "Copy for import in Webflow"}
-            </button>
-            {invalid.size > 0 && <p className="wcr-error">Certaines classes sont vides ou en doublon.</p>}
+    <div className="grid grid-cols-[0.5fr_1fr] gap-8">
+      <div>
+        <PasteZone data={data} error={error} onPaste={handlePaste} />
       </div>
   
-      <div className="wcr-col">
-        {data && (
-            <ul className="wcr-tree">
-                {tree.map((node) => (
-                <Node key={node.id} node={node} styles={styles} names={names} invalid={invalid} onRename={rename} />
-                ))}
-            </ul>
-        )}
-      </div>
+      <ClassesPanel
+        tree={tree}
+        styles={styles}
+        names={names}
+        invalid={invalid}
+        onRename={rename}
+        onCopy={handleCopy}
+        copied={copied}
+      />
     </div>
   );
 }
